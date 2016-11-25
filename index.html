@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  </head>
+  <body>
+    <script>
+      todo = angular.module('todo', []);
+      todo.controller('tcon', function($scope){
+        $scope.work = ['Go Shopping','Buy Laptop','Coming back to home','Take bath','Go to bed early'];
+        $scope.addItem = function(){
+          $scope.errortext = "";
+          if (!$scope.addMe) {return;}
+          if ($scope.work.indexOf($scope.addMe) == -1) {
+              $scope.work.push($scope.addMe);
+          } else {
+              $scope.errortext = "The item is already in your shopping list.";
+          }
+        }
+        
+        $scope.delItem = function(id){
+          $scope.errortext = "";
+          $scope.work.splice(id,1);
+        }
+        
+      });
+      
+    </script>
+    <div ng-app='todo' ng-controller='tcon'>
+      <ul>
+        <li ng-repeat='x in work'>{{ x }} <button ng-click="delItem($index)">Remove</button></li>
+      </ul>
+        <input placeholder="Add shopping items here" ng-model="addMe">
+        <button ng-click="addItem()">Add</button>
+        <p class="w3-padding-left w3-text-red">{{errortext}}</p>
+    </div>
+  </body>
+</html>
